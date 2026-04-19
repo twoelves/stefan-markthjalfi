@@ -1,3 +1,10 @@
+import React from 'react';
+
+/**
+ * Við notum venjulega skriftu-tög (script tags) hér til að tryggja 
+ * hámarks eindrægni við Netlify Identity og forðast villur í bundler.
+ */
+
 export const metadata = {
   title: 'Stefán Ólafur - Markþjálfi',
   description: 'Vottaður markþjálfi - Kulnun, ADHD og viðskipti',
@@ -7,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="is">
       <head>
-        {/* Netlify Identity widget - Þetta verður að vera í <head> fyrir innskráningu */}
+        {/* Netlify Identity widget - Þetta VERÐUR að vera í head til að CMS innskráning virki */}
         <script 
           src="https://identity.netlify.com/v1/netlify-identity-widget.js" 
           async 
