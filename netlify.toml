@@ -1,0 +1,4 @@
+[build]
+  base = "minn-vefur"
+  command = "npm run build"
+  publish = ".next"
