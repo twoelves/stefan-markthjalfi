@@ -20,7 +20,7 @@ import {
 
 const PRIMARY_GREEN = "#008B51";
 
-// Þýðingartextar
+// Þýðingartextar úr "virkar.txt"
 const translations = {
   is: {
     nav: { home: "Heim", about: "Um mig", blog: "Fréttir", lectures: "Fyrirlestrar", book: "Bóka tíma", mark: "Markþjálfun" },
@@ -141,27 +141,21 @@ const MOCK_BLOGS = [
     }
 ];
 
-export default function App() {
+export default function Page() {
   const [activeTab, setActiveTab] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [lang, setLang] = useState('is');
 
-  // Festum tungumálið strax í upphafi
   const t = translations[lang] || translations.is;
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Hindra skrun þegar valmynd er opin í síma
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      if (isMenuOpen) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = 'unset';
-      }
+      document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
     }
   }, [isMenuOpen]);
 
@@ -173,7 +167,6 @@ export default function App() {
     }
   };
 
-  // Ef síðan er ekki tilbúin sýnum við aðeins bakgrunninn til að forðast hvíta skjáinn
   if (!mounted) {
     return <div className="min-h-screen bg-[#FDFDFD]"></div>;
   }
@@ -185,12 +178,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
           
           <div className="flex items-center gap-4 cursor-pointer group" onClick={() => navigateTo('home')}>
-            <img 
-              src="/logo.svg" 
-              alt="Lógó" 
-              className="h-10 md:h-14 w-auto group-hover:scale-105 transition-transform duration-500"
-              onError={(e) => { e.target.style.display = 'none'; }}
-            />
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg transition-transform group-hover:scale-105">SÓ</div>
             <span className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-black text-slate-400 group-hover:text-emerald-600 transition-colors">{t.nav.mark}</span>
           </div>
           
@@ -228,9 +216,8 @@ export default function App() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <button 
-            className="md:hidden p-3 -mr-2 text-slate-800 focus:outline-none" 
+            className="md:hidden p-3 -mr-2 text-slate-800" 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
@@ -239,7 +226,7 @@ export default function App() {
 
         {/* Mobile Menu Overlay */}
         {isMenuOpen && (
-          <div className="fixed inset-0 top-20 bg-white z-[90] flex flex-col p-8 space-y-6 animate-in slide-in-from-right duration-300 md:hidden overflow-y-auto shadow-2xl">
+          <div className="fixed inset-0 top-20 bg-white z-[90] flex flex-col p-8 space-y-6 md:hidden overflow-y-auto shadow-2xl">
             {['home', 'about', 'blog', 'lectures'].map((id) => (
                 <button 
                     key={id} 
@@ -287,17 +274,17 @@ export default function App() {
                 <p className="text-lg md:text-xl text-slate-500 mb-12 max-w-xl leading-relaxed mx-auto md:mx-0 font-medium">
                   {t.hero.desc}
                 </p>
-                <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 md:gap-5">
+                <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
                   <a 
                     href="#contact" 
-                    className="px-8 md:px-10 py-5 rounded-[2rem] font-bold text-white shadow-2xl flex items-center justify-center gap-3 transition-all hover:scale-[1.02] hover:shadow-emerald-200"
+                    className="px-10 py-5 rounded-[2rem] font-bold text-white shadow-2xl flex items-center justify-center gap-3 transition-all hover:scale-[1.02]"
                     style={{ backgroundColor: PRIMARY_GREEN }}
                   >
                     <Calendar size={22} /> {t.hero.bookBtn}
                   </a>
                   <button 
                     onClick={() => navigateTo('lectures')}
-                    className="bg-white border-2 border-slate-100 text-slate-700 px-8 md:px-10 py-5 rounded-[2rem] font-bold hover:border-slate-300 transition-all flex items-center justify-center gap-2 shadow-sm"
+                    className="bg-white border-2 border-slate-100 text-slate-700 px-10 py-5 rounded-[2rem] font-bold hover:border-slate-300 transition-all flex items-center justify-center gap-2 shadow-sm"
                   >
                     {t.hero.lecturesBtn} <ArrowRight size={20} />
                   </button>
@@ -311,7 +298,6 @@ export default function App() {
                       src="/stefan-front.jpg" 
                       alt="Stefán Ólafur" 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      onError={(e) => { e.target.style.opacity = '0'; }}
                    />
                    <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8 bg-white/90 backdrop-blur-md p-6 md:p-7 rounded-[2rem] border border-white/50 shadow-xl text-center md:text-left">
                       <p className="text-[11px] font-black uppercase tracking-[0.2em] mb-2" style={{ color: PRIMARY_GREEN }}>Stefán Ólafur</p>
@@ -416,7 +402,7 @@ export default function App() {
               </p>
               <div className="flex items-center justify-between border-t border-slate-50 pt-10 mt-auto">
                 <span className="flex items-center gap-2 text-xs font-black text-slate-400 uppercase tracking-[0.2em]"><Clock size={18}/> 45 {t.lectures.duration}</span>
-                <button className="px-6 md:px-10 py-4 rounded-2xl text-white font-bold text-sm uppercase tracking-widest transition-all hover:scale-105 shadow-xl" style={{ backgroundColor: PRIMARY_GREEN }}>{t.lectures.viewBtn}</button>
+                <button className="px-10 py-4 rounded-2xl text-white font-bold text-sm uppercase tracking-widest transition-all hover:scale-105 shadow-xl" style={{ backgroundColor: PRIMARY_GREEN }}>{t.lectures.viewBtn}</button>
               </div>
             </div>
             
@@ -472,11 +458,7 @@ export default function App() {
       </section>
 
       <footer className="py-20 md:py-24 text-slate-300 text-[11px] text-center bg-white border-t border-slate-100 uppercase tracking-widest">
-        <img 
-          src="/logo.svg" 
-          className="h-10 md:h-12 mx-auto mb-10 opacity-20 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700 cursor-pointer" 
-          alt="Lógó" 
-        />
+        <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-300 font-black text-xl mx-auto mb-10 grayscale opacity-50">SÓ</div>
         <div className="font-black tracking-[0.4em] uppercase mb-4 text-slate-400">{t.nav.mark}</div>
         <p className="font-bold text-slate-400">Reykjavík, Iceland &bull; &copy; {new Date().getFullYear()}</p>
       </footer>

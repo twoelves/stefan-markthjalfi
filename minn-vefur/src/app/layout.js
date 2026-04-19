@@ -5,11 +5,11 @@ export const metadata = {
   description: 'Vottaður markþjálfi - Kulnun, ADHD og viðskipti',
 }
 
-export default function App({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="is">
       <head>
-        {/* Netlify Identity widget - Nauðsynlegt fyrir CMS innskráningu */}
+        {/* Netlify Identity widget - Þetta VERÐUR að vera í head til að CMS innskráning virki */}
         <script 
           src="https://identity.netlify.com/v1/netlify-identity-widget.js" 
           async 
@@ -18,7 +18,7 @@ export default function App({ children }) {
       <body className="antialiased">
         {children}
 
-        {/* Skrifta sem sér um að senda þig í /admin eftir að þú skráir þig inn */}
+        {/* Þessi skrifta sér um að senda notandann í /admin eftir að hann skráir sig inn */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
