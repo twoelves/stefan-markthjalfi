@@ -1,0 +1,31 @@
+backend:
+  name: git-gateway
+  branch: main # Gakktu úr skugga um að þetta sé rétt grein í GitHub
+
+media_folder: "public/images/uploads" # Hvar myndirnar sem þú hleður upp vistast
+public_folder: "/images/uploads"
+
+collections:
+  - name: "frettir"
+    label: "Fréttir & Greinar"
+    folder: "minn-vefur/content/frettir" # Hvar fréttirnar vistast sem skrár
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Fyrirsögn", name: "title", widget: "string" }
+      - { label: "Dagsetning", name: "date", widget: "datetime" }
+      - { label: "Flokkur", name: "category", widget: "select", options: ["Vellíðan", "ADHD", "Viðskipti", "Almennt"] }
+      - { label: "Kynningartexti", name: "excerpt", widget: "text" }
+      - { label: "Aðalmynd", name: "image", widget: "image", required: false }
+      - { label: "Innihald greinar", name: "body", widget: "markdown" }
+
+  - name: "sidur"
+    label: "Síður"
+    files:
+      - name: "forsida"
+        label: "Forsíða (Hero)"
+        file: "minn-vefur/content/pages/home.json"
+        fields:
+          - { label: "Fyrirsögn", name: "hero_title", widget: "string" }
+          - { label: "Undirtitill", name: "hero_desc", widget: "text" }
+          - { label: "Tilvitnun", name: "quote", widget: "string" }
