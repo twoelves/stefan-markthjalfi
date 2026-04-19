@@ -9,13 +9,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="is">
       <head>
-        {/* Netlify Identity widget - Þetta VERÐUR að vera í head til að CMS innskráning virki */}
+        {/* Netlify Identity widget - Nauðsynlegt fyrir CMS innskráningu */}
         <script 
           src="https://identity.netlify.com/v1/netlify-identity-widget.js" 
           async 
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased bg-[#FDFDFD]">
         {children}
 
         {/* Þessi skrifta sér um að senda notandann í /admin eftir að hann skráir sig inn */}
